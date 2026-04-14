@@ -1,73 +1,64 @@
-# React + TypeScript + Vite
+# Brain Hand
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Control a 3D brain with your hands. No mouse, no keyboard — just a webcam and gestures.
 
-Currently, two official plugins are available:
+## What it does
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Point your webcam at your hands and use natural gestures to explore an interactive 3D model of the human brain:
 
-## React Compiler
+- **Pinch and drag** — Rotate the brain in any direction
+- **Two-hand pinch** — Zoom in and out
+- **Spread both hands apart** — Split the hemispheres open
+- **Hold an open palm still** — Reset the view
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The brain is rendered from a real neuroscience template (fsaverage5 from FreeSurfer) with cascade wave activations that ripple across the cortex surface.
 
-## Expanding the ESLint configuration
+## How to run it
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+You'll need [Node.js](https://nodejs.org/) installed (version 18 or newer).
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. Clone this repo and open it:
+   ```
+   git clone https://github.com/liusunny06421/brain-hand.git
+   cd brain-hand
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2. Install dependencies:
+   ```
+   npm install
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3. Start the app:
+   ```
+   npm run dev
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+4. Open **http://localhost:5173** in Chrome
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+5. Allow camera access when prompted
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+6. Hold up your hands and start exploring!
+
+## Gesture guide
+
+| Gesture | What it does |
+|---------|-------------|
+| Pinch thumb + index, drag hand | Rotate the brain |
+| Both hands pinch, move apart/together | Zoom in / out |
+| Open both hands wide, spread apart | Explode hemispheres |
+| Open palm, hold still for 1 second | Reset to default view |
+
+## How it works
+
+- **Hand tracking** runs in your browser using Google's MediaPipe — nothing is sent to a server
+- **Brain model** is the fsaverage5 cortical surface from FreeSurfer (Harvard/MIT), a standard template used in neuroscience research
+- **3D rendering** uses Three.js with React Three Fiber
+- **Neural activations** are simulated cascade waves that ripple across the brain surface
+
+## Browser support
+
+Works best in **Chrome** or **Edge** on desktop. Requires a webcam. Mobile is not supported yet.
+
+## License
+
+Brain mesh data: fsaverage5 from [FreeSurfer](https://surfer.nmr.mgh.harvard.edu/) (Harvard/MIT), freely available for research and educational use.
